@@ -1,0 +1,64 @@
+{% extends "Home/base.html" %}
+{% load static %}
+{% block title %}
+NIRGOVIND-Login
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'login/style.css' %}">
+{% endblock css %}
+
+{% block body %}
+
+<!-- ======= Main ======= -->
+<div class="main">
+    <div class="maincontainer">
+        <form action="{% url 'User:login' %}" method="post">
+        <h2>Login</h2>
+        
+        {% csrf_token %}
+        {{ form.as_p }}
+        <!--<div class="input-field">
+            <label for="username">Username or Email:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="input-field">
+            <div class="toggle-password">
+            <p class="toggle-password-text">Show</p>
+            </div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>-->
+        <input type="checkbox" id="showPassword">
+        <label for="showPassword">Show Password</label>
+        <div class="submit-btn">
+            <button name="submit" type="submit">Login</button>
+        </div>
+        </form>
+        <div>
+            <a href="{% url 'Home:index' %}">
+                <button type="submit">Cancel</button>
+            </a>
+        </div>
+        <a href="{% url 'User:send_otp' %}">Forgot Password?</a>
+        <div class="sign-up">
+            <a href="{% url 'User:signup' %}">
+                <button type="submit">Sign up</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Toggle password visibility when the checkbox is clicked
+    document.getElementById("showPassword").addEventListener("change", function() {
+      var passwordInput = document.getElementById("id_password");
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+      } else {
+        passwordInput.type = "password";
+      }
+    });
+</script>
+
+{% endblock body %}

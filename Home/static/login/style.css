@@ -1,0 +1,155 @@
+/*--------------------------------------------------------------
+# Main section
+--------------------------------------------------------------*/
+.main {
+  padding-top: 100px;
+  box-sizing: border-box;
+  background: url("../img/visualbg.png");
+  background-repeat: y-axis;
+  font-family: cursive;
+  padding-top: 70px;
+}
+
+.maincontainer {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  padding: 50px 20px;
+}
+
+.main form {
+  font-weight: bold;
+  padding: 20px;
+  border: none;
+  border-radius: 35px;
+  background-image: -webkit-linear-gradient(top, rgb(255, 237, 208) 0%, rgb(245, 210, 144) 100%);
+  box-shadow: 0px 0px 30px #954902;
+  color: rgba(251, 170, 40, 0.951);
+  text-decoration: none;
+}
+
+.main h2 {
+  text-align: center;
+  font-family: inherit;
+  color: #9d5e5e;
+  margin-bottom: 30px;
+}
+
+.maincontainer .input-field {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.maincontainer .toggle-password{
+  background-image: url('https://api.iconify.design/ic/sharp-remove-red-eye.svg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  cursor: pointer;
+  position: relative;
+  float: right;
+  margin-right: 45px;
+}
+
+.maincontainer .toggle-password-text{
+  color: #444;
+  font-size: 14px;
+  position: relative;
+  left: 30px;
+  margin-bottom: 0;
+}
+
+.maincontainer .toggle-password-text:hover{
+  color: #04718f;
+}
+
+.maincontainer .input-field label {
+  position: relative;
+  left: 5px;
+  font-size: 16px;
+  color: #4f2702;
+  transition: all 0.2s ease-out;
+}
+
+.maincontainer input {
+  width: 100%;
+  padding: 5px 10px 3px 10px;
+  color: #663608;
+  border: none;
+  border-radius: 5px;
+  border-bottom: 2px solid #a76e03;
+  font-size: 16px;
+  background-image: -webkit-linear-gradient(top, #f6e0b6 0%, #cca04e 100%);
+}
+
+input:focus ~ label,
+input:not(:placeholder-shown) ~ label {
+  top: 0;
+  transform: translateY(0%);
+  font-size: 16px;
+  color: #4f2702;
+}
+
+.maincontainer .submit-btn{
+  text-align: center;
+}
+
+.maincontainer .submit-btn a{
+  display: inline;
+}
+
+.maincontainer .submit-btn button[type="submit"] {
+  width: 25%;
+  padding: 0px 2px 6px 2px;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  background-image: -webkit-linear-gradient(top, #df9040 0%, #7c4916 100%);
+  box-shadow: 0 1px 2px #6f3703;
+  color: #562704;
+  text-shadow: 0 1px 1px #dd9b5d;
+  text-decoration: none;
+}
+
+.maincontainer .submit-btn button[type="submit"]:hover {
+  background-image: -webkit-linear-gradient(top, #83d8f0 0%, #553cb7 100%);
+  color: #024a5e;
+}
+
+.maincontainer a {
+  display: block;
+  text-align: center;
+  color: #444;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.maincontainer a:hover{
+  color: #04718f;
+}
+
+.maincontainer .sign-up{
+  display: block;
+  text-align: right;
+}
+
+.maincontainer .sign-up button[type="submit"] {
+  width: 25%;
+  padding: 0px 2px 6px 2px;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  background-image: -webkit-linear-gradient(top, #f3ce83 0%, #825b0c 100%);
+  box-shadow: 0 1px 2px #6f3703;
+  color: #562704;
+  text-shadow: 0 1px 1px #dd9b5d;
+  text-decoration: none;
+}
+
+.maincontainer .sign-up button[type="submit"]:hover {
+  background-image: -webkit-linear-gradient(top, #f0a283 0%, #553cb7 100%);
+  color: #024a5e;
+}

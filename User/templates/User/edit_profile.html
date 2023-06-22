@@ -1,0 +1,30 @@
+{% extends 'Home/base.html' %}
+{% load static %}
+{% block title %}
+NIRGOVIND-Edit_Profile
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'form/style.css' %}">
+{% endblock css %}
+
+{% block body %}
+
+<!-- ======= Main ======= -->
+<div class="main">
+    <div class="maincontainer">
+        <h2>Edit Your Profile</h2>
+        <form method="post" enctype="multipart/form-data" action="{% url 'User:edit_profile' %}">
+            {% csrf_token %}
+            {{ form1 }}
+            {{ form2 }}
+            <div class="submit-btn">
+                <button name="submit" type="submit">Save</button>
+            </div>
+        </form>
+        <a href="{% url 'User:profile' username %}">
+            <button type="submit">Cancel</button>
+        </a>
+    </div>
+</div>
+{% endblock body %}

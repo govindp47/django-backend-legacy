@@ -1,0 +1,37 @@
+{% extends 'Home/base.html' %}
+{% load static %}
+{% block title %}
+NIRGOVIND-Profile
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'profile/style.css' %}">
+{% endblock css %}
+
+{% block body %}
+
+<!-- ======= Main ======= -->
+<div class="main">
+    <div class="maincontainer">
+        <h2>Profile</h2>
+
+        <img {% if user.user_profile.profile_pic %} src="{{ user.user_profile.profile_pic.url }}" {% endif %} alt="No Profile Picture" width="200" height="200">
+        
+        <h2>{{user.first_name}} {{user.last_name}} ({{ user.username }})</h2>
+
+        <p><a href="{% url 'User:edit_profile' %}">Edit profile</a></p>
+        <p><a href="{% url 'User:change_password' %}">Change Password</a></p>
+
+        <p>Email : {{user.email}} </p>
+        <p>Phone Number : {{user.user_profile.phone}} </p>
+        <p>About : {{user.user_profile.about}}</p>
+        <p>location: {{ user.user_profile.location }}</p>
+        <p>Website: <a href="{{ user.user_profile.website }}" target="_blank">{{ user.user_profile.website }}</a></p>
+        <p>Instagram: <a href="{{ user.user_profile.instagram_link }}" target="_blank">{{ user.user_profile.instagram_link }}</a></p>
+        <p>Facebook: <a href="{{ user.user_profile.facebook_link }}" target="_blank">{{ user.user_profile.facebook_link }}</a></p>
+        <p>Twitter: <a href="{{ user.user_profile.twitter_link }}" target="_blank">{{ user.user_profile.twitter_link }}</a></p>
+        <p>LinkedIn: <a href="{{ user.user_profile.linkedin_link }}" target="_blank">{{ user.user_profile.linkedin_link }}</a></p>
+    </div>
+</div>
+
+{% endblock body %}

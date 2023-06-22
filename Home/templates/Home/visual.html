@@ -1,0 +1,1025 @@
+{% extends 'Home/base.html' %}
+{% load static %}
+{% block title %}
+NIRGOVIND-Visual
+{% endblock title %}
+
+{% block css %}
+<!-- Include Font Awesome CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'visual/style.css' %}">
+{% endblock css %}
+
+{% block body %}
+
+
+<!-- ======= Main ======= -->
+<div class="main">
+  <!-- Add navigation links or buttons to trigger section switching -->
+  <div class="switch-container">
+    <nav id="section-switch">
+      <ul>
+        <li><a href="#gita-saar" class="section-link active">Gita Saar</a></li>
+        <li><a href="#language-of-wisdom" class="section-link">Language of Wisdom</a></li>
+        <li><a href="#shlokas-in-action" class="section-link">Shlokas in Action</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="section-container">
+    <section id="gita-saar" class="section active">
+      <div class="switch-base">
+        <p>"Unveiling the Essence of Bhagavad Gita"</p>
+      </div>
+      <h1>Section 1</h1>
+
+      <div class="title">
+        VISUAL
+      </div>
+    
+      <!-- Visual Main-->
+      <div class="visual">
+        <!-- Slides Section-->
+        <div class="main-window">
+    
+          <!-- Login-Alert -->
+          <!-- *****make the login popup redirect again to original page**** -->
+          <div class="popup-window">
+            <p>Please Login First</p>
+            <a href="{% url 'User:login' %}">
+              <button>Login</button>
+            </a>
+          </div>
+          <div class="popup-overlay"></div>
+    
+    
+    
+          <div id="new-player" data-slideshow-id="4075756" class="presentation-player with-alongslide">
+            <form method="post" action="" id="shloka_ch">
+              {% csrf_token %}
+              <div id="chapter-value-wrapper" class="chapter-value-widget">
+                <label for="chapter-value">Chapter</label>
+                <div class="views-widget">
+                  <div class="form-chapter-value">
+                    <select name="chapter-value" id="ch_value" size="1" class="form-select required"
+                      onchange="this.form.submit();">
+                      {% for ch in ch_values %}
+                      {% if current_ch == ch %}
+                      <option value="{{ ch }}" selected>{{ ch }}</option>
+                      {% else %}
+                      <option value="{{ ch }}">{{ ch }}</option>
+                      {% endif %}
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+    
+              <div id="shloka-value-wrapper" class="shloka-value-widget">
+                <label for="chapter-value">Shloka</label>
+                <div class="views-widget">
+                  <div class="form-chapter-value">
+                    <select name="shloka-value" id="sk_value" size="1" class="form-select required"
+                      onchange="this.form.submit();">
+                      {% for sk in sk_values %}
+                      {% if current_sk == sk %}
+                      <option value="{{ sk }}" selected>{{ sk }}</option>
+                      {% else %}
+                      <option value="{{ sk }}">{{ sk }}</option>
+                      {% endif %}
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </form>
+    
+            <div class="navigation-widget">
+              <input class="ctools-use-ajax ctools-auto-submit-click js-hide form-submit" type="submit"
+                id="edit-submit-srimad" value="Apply">
+              <div id="edit-navigation" class="form-item">
+                <p class="navigation-block">
+                  <button onclick="selectPrevious(document.getElementById('ch_value'))" id="prev-ch"> << </button>
+                  <button onclick="selectPrevious(document.getElementById('sk_value'))" id="prev-sk"> < </button>
+                  <button onclick="selectNext(document.getElementById('sk_value'))" id="next-sk"> > </button>
+                  <button onclick="selectNext(document.getElementById('ch_value'))" id="next-ch"> >> </button>
+                </p>
+              </div>
+            </div>
+    
+            <h2>Shloka {{ current_ch }}.{{ current_sk }}</h2>
+    
+            <div id="stage">
+              <div id="slide-container" data-cy="slide-container" tabindex="0">
+                {% for slide in slides %}
+                <div class="slide" id="slide-{{ slide.slide_number }}" data-index="{{ slide.slide_number }}">
+                  <picture>
+                    <img class="slide-image" src="{{ slide.slide_image.url }}" alt="By, Nirgovind">
+                  </picture>
+                </div>
+                {% endfor %}
+    
+                <div class="right-pointer" onclick="nextSlide()" id="nextSlide-div">
+                  <div class="forward-arrow"> >> </div>
+                </div>
+                <div class="left-pointer" onclick="previousSlide()" id="previousSlide-div">
+                  <div class="backward-arrow">
+                    << </div>
+                  </div>
+                </div>
+              </div>
+    
+              <div id="filmstrip">
+                <ul id="filmstrip-list">
+                  {% for slide in slides %}
+                  <li id="thumbnail-{{ slide.slide_number }}" data-slide="{{ slide.slide_number }}">
+                    <img src="{{ slide.slide_image.url }}" alt="loading">
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+    
+              <div id="player-toolbar">
+                <!--<div id="progress-bar">
+                <div class="clipping-indicator-container">
+                  <div class="clipping-indicator top-clip">
+                    <span class="clipping-indicator-nub"></span>
+                  </div>
+                  <div class="clipping-indicator top-clip">
+                    <span class="clipping-indicator-nub"></span>
+                  </div>
+                  <div class="clipping-indicator">
+                    <span class="clipping-indicator-nub"></span>
+                  </div>
+                  <div class="clipping-indicator top-clip">
+                    <span class="clipping-indicator-nub"></span>
+                  </div>
+                </div>
+    
+              </div>-->
+    
+                <div class="buffered-bar">
+                  <div class="progress-bar"></div>
+                  <div class="bar-knob"></div>
+                </div>
+    
+                <div id="player-toolbar-left-actions" class="player-toolbar-item">
+                  <button class="like"></button>
+                  <button id="share"></button>
+                </div>
+    
+                <div id="player-navigation" class="player-toolbar-item">
+                  <button onclick="previousSlide()" type="button" id="previous-slide" data-cy="previous-button"
+                    aria-label="Previous Slide" disabled>
+                    Prev
+                  </button>
+                  <span class="slide-index" aria-live="polite" aria-atomic="true">
+                    <span data-cy="current-slide-number" id="current-slide-number"
+                      class="current-slide-number j-current-slide">0</span>
+                    of
+                    <span class="total-slides j-total-slides">{{ slides|length }}</span>
+                  </span>
+                  <button onclick="nextSlide()" type="button" id="next-slide" data-cy="next-button" aria-label="Next Slide"
+                    disabled>
+                    Next
+                  </button>
+                </div>
+    
+                <div id="player-toolbar-right-actions" class="player-toolbar-item">
+                  <div class="zoom-slide">
+                    <button type="button" class="zoom-in" aria-label="Zoom In">
+                      <i class="bx zoom-in"></i>
+                    </button>
+                    <button type="button" class="zoom-out" aria-label="Zoom Out">
+                      <i class="bx zoom-out"></i>
+                    </button>
+                  </div>
+                  <div id="downloadButton">
+                    <button id="download">dd</button>
+                    <select id="downloadOptions">
+                      <option value="">Download Options</option>
+                      <option value="pdf">as pdf</option>
+                      <option value="zip">as zip</option>
+                    </select>
+                  </div>
+                  <button type="button" id="fullscreen" aria-label="View Fullscreen">
+                    <i class="icon-focus fullscreen-icon"></i>
+                  </button>
+                </div>
+    
+              </div>
+    
+              <div id="fullscreen-Overlay">
+                <div id="fullscreen-Slide-Container"></div>
+                <button id="exit-fullscreen">Exit Fullscreen</button>
+              </div>
+    
+              <!-- fullscreen overlay
+            <div id="player-fullscreen-overlay">
+              <div id="overlay-player-left">
+                <button type="button" id="overlay-previous-slide" data-cy="overlay-previous-button" aria-label="Previous Slide" disabled>
+                  <i class="icon-chevron-left"></i>
+                </button>
+              </div>
+    
+              <div id="overlay-player-top">
+    
+              </div>
+    
+              <div id="overlay-player-bottom">
+                <div id="player-fullscreen-navigation" class="player-toolbar-item">
+                  <span class="slide-index" aria-live="polite" aria-atomic="true">
+                    <span data-cy="current-slide-number" class="current-slide-number j-current-slide">1</span>
+                    " of "
+                    <span class="total-slides j-total-slides">4</span>
+                  </span>
+                </div>
+                <div class="content-right">
+                  <div class="zoom-slide">
+                    <button type="button" class="zoom-in" aria-label="Zoom In">
+                      <i class="icon-zoom-in"></i>
+                    </button>
+                    <button type="button" class="zoom-out" aria-label="Zoom Out">
+                      <i class="icon-zoom-out"></i>
+                    </button>
+                  </div>
+                  <button type="button" id="exit-fullscreen" aria-label="Exit Fullscreen">
+                    <i class="icon-compress exit-fullscreen-icon"></i>
+                  </button>
+                </div>
+              </div>
+    
+              <div id="overlay-player-right">
+                <button type="button" id="overlay-next-slide" data-cy="overlay-next-button" aria-label="Next Slide">
+                  <i class="icon-chevron-right"></i>
+                </button>
+              </div>
+            </div>-->
+    
+            </div>
+          </div>
+    
+          <!-- Recommendations section-->
+          <div class="recommend">
+            <h2>Recommended</h2>
+          </div>
+        </div>
+      
+    </section>
+  
+    <section id="language-of-wisdom" class="section">
+      <div class="switch-base">
+        <p>"Language Learning Inspired by Bhagavad Gita"</p>
+      </div>
+      <h1>Section 2</h1>
+
+      <div id="" class="translation-window">
+        <div class="shloka-selection">
+          <label for="language"><span id="lang">Language</span>:</label>
+          <select name="language" id="lang-select" size="1" class="" onchange="langSelect()">
+            <option value="english" selected>English</option>
+            <option value="hindi">हिंदी</option>
+            <option value="gujarati">ગુજરાતી</option>
+            <option value="marathi">मराठी</option>
+          </select>
+        </div>
+        <h2><span id="sk-translation">Shloka</span> {{ current_ch }}.{{ current_sk }}</h2>
+  
+        <div class="sanskrit-container">
+          <picture>
+            <img class="sanskrit-shloka" src="{{ current_shloka.sanskrit.url }}" alt="By, Nirgovind">
+          </picture>
+        </div>
+  
+        <h2><span id="translation">Translation</span></h2>
+        <div class="sanskrit-container">
+          <picture>
+            <img class="shloka-translation" src="{{ current_shloka.english.url }}" alt="By, Nirgovind">
+            <img class="shloka-translation" src="{{ current_shloka.hindi.url }}" alt="By, Nirgovind">
+            <img class="shloka-translation" src="{{ current_shloka.gujarati.url }}" alt="By, Nirgovind">
+            <img class="shloka-translation" src="{{ current_shloka.marathi.url }}" alt="By, Nirgovind">
+          </picture>
+        </div>
+      </div>
+      
+    </section>
+  
+    <section id="shlokas-in-action" class="section">
+      <div class="switch-base">
+        <p>"Harnessing Bhagavad Gita's Shlokas for Language Education"</p>
+      </div>
+      <h1>Section 3</h1>
+      <div class="refresh-div">
+        <h2>Refresh</h2>
+        <button class="refresh">
+          <div id="ricon1" style="display: block;"><i class="fas fa-sync"></i></div>
+          <div id="ricon2" style="display: none;"><i class="fas fa-sync fa-spin"></i></div>
+        </button>
+      </div>
+      <div id="youtube-player"></div>
+      <div id="recommended-videos">
+        {% for video in videos %}
+        <div class="recommended-video" data-video_id="{{ video.video_id }}" style="display: block;">
+          <a href="javascript:void(0);" class="youtube-video">
+            <div>
+              <img src="" alt="Video Thumbnail">
+            </div>
+            <div class="video-details">
+              <h2 class="recommended-video-title">video</h2>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+      <div>
+        <p class="recommended-video-channel">NIRGOVIND</p>
+        <div class="stats">
+          <p class="video-likes"><i class="fas fa-thumbs-up"></i> 10M</p>
+          <p class="video-views"><i class="fas fa-eye"></i> 10B</p>
+        </div>
+      </div>
+      
+    </section>
+  </div>
+
+
+
+</div>
+
+
+  <script src="{% static 'external-css-js/FileSaver/dist/FileSaver.min.js' %}"></script>
+  <script src="{% static 'external-css-js/jsPDF/dist/jspdf.min.js' %}"></script>
+  <script src="{% static 'external-css-js/jsZIP/dist/jszip.min.js' %}"></script>
+  <script> var isUserAuthenticated = {% if user.is_authenticated %} true {% else %} false {% endif %};</script>
+  <!--<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=648042de7e3db300120b2b25&product=sop' async='async'></script>-->
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <!--<script src="https://apis.google.com/js/api.js"></script>-->
+  <!-- Include Font Awesome JS (optional) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+
+  <script>
+
+    // section switching
+    document.addEventListener('DOMContentLoaded', function() {
+      const navLinks = document.querySelectorAll('.section-link');
+      const sections = document.querySelectorAll('.section');
+
+      navLinks.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+          event.preventDefault();
+
+          sections.forEach(function(section) {
+            section.classList.remove('active');
+          });
+          navLinks.forEach(function(a) {
+            a.classList.remove('active');
+          });
+
+          const target = document.querySelector(this.getAttribute('href'));
+          target.classList.add('active');
+          link.classList.add('active');
+        });
+      });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // shloka and chapter toggle
+    function selectPrevious(select) {
+      if (select.selectedIndex == 0) {
+        select.selectedIndex = select.options.length - 1;
+      }
+      else {
+        select.selectedIndex -= 1;
+      }
+      document.getElementById("shloka_ch").submit();
+    }
+
+    function selectNext(select) {
+      select.selectedIndex += 1;
+      document.getElementById("shloka_ch").submit();
+    }
+
+    document.getElementById('prev-ch').disabled = document.getElementById('ch_value').selectedIndex === 0;
+    document.getElementById('prev-sk').disabled = document.getElementById('sk_value').selectedIndex === 0;
+    document.getElementById('next-sk').disabled = document.getElementById('sk_value').selectedIndex === document.getElementById('sk_value').options.length - 1;
+    document.getElementById('next-ch').disabled = document.getElementById('ch_value').selectedIndex === document.getElementById('ch_value').options.length - 1;
+
+
+    // popup window
+    const popupWindow = document.querySelector('.popup-window');
+    const popupOverlay = document.querySelector('.popup-overlay');
+
+    // Slide Stage functionality
+    var slideIndex = 0;
+    var oldThumbIndex = 0;
+    let dragging = false;
+
+    slides = Array.from(document.getElementsByClassName('slide-image'));
+
+    const leftDiv = document.querySelector('.left-pointer');
+    const rightDiv = document.querySelector('.right-pointer');
+
+    const bufferedBar = document.querySelector('.buffered-bar');
+    const progressBar = document.querySelector('.progress-bar');
+    const barKnob = document.querySelector('.bar-knob');
+    const filmStrip = document.querySelector('#filmstrip');
+    const thumbnails = document.querySelectorAll('#filmstrip-list li');
+    const thumbnail1 = document.querySelector('#thumbnail-1');
+
+    function filmstripSmoothFlow(thumbIndex) {
+      thumbnails.forEach(thumbnail => {
+        thumbnail.classList.remove('active');
+        const topClipLabel = thumbnail.querySelector('.top-clip-label');
+        if (topClipLabel) {
+          thumbnail.removeChild(topClipLabel);
+        }
+      });
+
+      thumbnails[thumbIndex].classList.add('active');
+      const newSpan = document.createElement('span');
+      newSpan.classList.add('top-clip-label');
+      newSpan.textContent = thumbnails[thumbIndex].dataset.slide;
+      thumbnails[thumbIndex].appendChild(newSpan);
+      const newLeft = 250 - (158 * thumbIndex);
+      thumbnail1.style.marginLeft = `${newLeft}px`;
+    }
+
+
+    function knobPositionChange(e) {
+      const progressBarWidth = bufferedBar.offsetWidth;
+      const clickPositionX = e.pageX - bufferedBar.getBoundingClientRect().left;
+      slides[slideIndex].style.display = 'none';
+      slideIndex = Math.floor(slides.length * (Math.max(0, Math.min((clickPositionX / progressBarWidth), 1))));
+      if (slideIndex == slides.length) {
+        slideIndex--;
+      }
+      showSlide();
+    }
+
+
+    function drag(e) {
+      const progressBarWidth = bufferedBar.offsetWidth;
+      const clickPositionX = e.pageX - bufferedBar.getBoundingClientRect().left;
+      let progress = (clickPositionX / progressBarWidth);
+      const progressPercentage = Math.max(0, Math.min(progress * 98, 98));
+      progressBar.style.width = `${progressPercentage}%`;
+      barKnob.style.left = `${progressPercentage}%`;
+
+      const newThumbIndex = Math.floor(slides.length * (Math.max(0, Math.min(progress, 1))));
+      if (newThumbIndex == slides.length) {
+        newThumbIndex--;
+      }
+      if (oldThumbIndex != newThumbIndex || slides.length == 1) {
+        oldThumbIndex = newThumbIndex;
+        filmstripSmoothFlow(newThumbIndex);
+      }
+    }
+
+    function startDrag(e) {
+      dragging = true;
+      filmStrip.style.display = 'flex';
+      document.addEventListener('mousemove', drag);
+    }
+
+    function stopDrag(e) {
+      if (dragging) {
+        document.removeEventListener('mousemove', drag);
+        filmStrip.style.display = 'none';
+        knobPositionChange(e);
+        dragging = false;
+      }
+    }
+
+
+    function showSlide() {
+      slides[slideIndex].style.display = 'block';
+
+      const progressPercentage = ((slideIndex + 1) / slides.length) * 98;
+      progressBar.style.width = `${progressPercentage}%`;
+      barKnob.style.left = `${progressPercentage}%`;
+
+      document.getElementById('current-slide-number').textContent = slideIndex + 1;
+      document.getElementById('previousSlide-div').style.pointerEvents = 'auto';
+      document.getElementById('nextSlide-div').style.pointerEvents = 'auto';
+
+      document.getElementById('previous-slide').disabled = slideIndex === 0;
+      document.getElementById('next-slide').disabled = slideIndex === slides.length - 1;
+      if (document.getElementById('previous-slide').disabled) {
+        document.getElementById('previousSlide-div').style.pointerEvents = 'none';
+      }
+      if (document.getElementById('next-slide').disabled) {
+        document.getElementById('nextSlide-div').style.pointerEvents = 'none';
+      }
+    }
+
+    function nextSlide() {
+      slides[slideIndex].style.display = 'none';
+      slideIndex++;
+      showSlide();
+    }
+
+    function previousSlide() {
+      slides[slideIndex].style.display = 'none';
+      slideIndex--;
+      showSlide();
+    }
+
+
+    if (slides.length > 0) {
+      bufferedBar.addEventListener('click', knobPositionChange);
+
+      barKnob.addEventListener('mousedown', startDrag);
+      document.addEventListener('mouseup', stopDrag);
+
+      document.addEventListener('DOMContentLoaded', showSlide);
+    }
+
+
+    function showSign(sign) {
+      sign.style.opacity = '1';
+      setTimeout(() => {
+        sign.style.opacity = '0';
+      }, 500);
+    }
+
+    leftDiv.addEventListener('click', () => {
+      showSign(leftDiv);
+    });
+    rightDiv.addEventListener('click', () => {
+      showSign(rightDiv);
+    });
+
+
+    // Fullscreen
+    /*const slideContainer = document.getElementById('stage');
+    const fullscreenButton = document.querySelector('#fullscreen');
+    const fullscreenOverlay = document.getElementById('fullscreen-Overlay');
+    const fullscreenSlideContainer = document.getElementById('fullscreen-Slide-Container');
+    const exitFullscreenButtons = document.querySelectorAll('#exit-fullscreen');
+    
+    fullscreenButton.addEventListener('click', () => {
+      fullscreenSlideContainer.innerHTML = slideContainer.innerHTML;
+      fullscreenOverlay.style.display = 'flex';
+      document.body.classList.add('fullscreen');
+    });
+    
+    exitFullscreenButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        fullscreenOverlay.style.display = 'none';
+        document.body.classList.remove('fullscreen');
+      });
+    });*/
+
+    const slideContainer = document.getElementById('stage');
+    const fullscreenButton = document.getElementById('fullscreen');
+    const exitFullscreenButton = document.getElementById('exit-fullscreen');
+
+    fullscreenButton.addEventListener('click', () => {
+      if (slideContainer.requestFullscreen) {
+        slideContainer.requestFullscreen();
+      } else if (slideContainer.mozRequestFullScreen) {
+        slideContainer.mozRequestFullScreen();
+      } else if (slideContainer.webkitRequestFullscreen) {
+        slideContainer.webkitRequestFullscreen();
+      } else if (slideContainer.msRequestFullscreen) {
+        slideContainer.msRequestFullscreen();
+      }
+    });
+
+    exitFullscreenButton.addEventListener('click', () => {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    });
+
+    document.addEventListener('fullscreenchange', () => {
+      if (document.fullscreenElement) {
+        slideContainer.classList.add('fullscreen');
+      } else {
+        slideContainer.classList.remove('fullscreen');
+      }
+    });
+
+    document.addEventListener('mozfullscreenchange', () => {
+      if (document.mozFullScreenElement) {
+        slideContainer.classList.add('fullscreen');
+      } else {
+        slideContainer.classList.remove('fullscreen');
+      }
+    });
+
+    document.addEventListener('webkitfullscreenchange', () => {
+      if (document.webkitFullscreenElement) {
+        slideContainer.classList.add('fullscreen');
+      } else {
+        slideContainer.classList.remove('fullscreen');
+      }
+    });
+
+    document.addEventListener('msfullscreenchange', () => {
+      if (document.msFullscreenElement) {
+        slideContainer.classList.add('fullscreen');
+      } else {
+        slideContainer.classList.remove('fullscreen');
+      }
+    });
+
+
+    // Download button
+    async function downloadSlidesAsPDF() {
+      const slideImages = document.querySelectorAll('.slide-image');
+      const pdf = new jsPDF('landscape', 'mm', 'a4');
+      
+      // Helper function to load image as base64
+      function loadImageAsBase64(url) {
+        return new Promise((resolve, reject) => {
+          const xhr = new XMLHttpRequest();
+          xhr.onload = function () {
+            const reader = new FileReader();
+            reader.onloadend = function () {
+              resolve(reader.result);
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(xhr.response);
+          };
+          xhr.onerror = reject;
+          xhr.open('GET', url);
+          xhr.responseType = 'blob';
+          xhr.send();
+        });
+      }
+      const imagePromises = [];
+      async function processImage(image, index) {
+        const imageUrl = image.src;
+        const promise = await loadImageAsBase64(imageUrl)
+        .then(base64Data => {
+          const pageWidth = pdf.internal.pageSize.width;
+          const pageHeight = pdf.internal.pageSize.height;
+          const imageWidth = pageWidth - 20;
+          const imageHeight = pageHeight - 20;
+          pdf.addImage(base64Data, 'JPEG', 10, 10, imageWidth, imageHeight);
+          if (index!=(slideImages.length-1)){
+            pdf.addPage();
+          }
+        });
+        imagePromises.push(promise);
+      }
+      for (let i = 0; i < slideImages.length; i++) {
+        await processImage(slideImages[i], i);
+      }
+      Promise.all(imagePromises)
+      .then(() => {
+        pdf.save('slides.pdf');
+      })
+      .catch(error => {
+        console.error('Error loading images:', error);
+      });
+    }
+
+    // Function to download all slides as a ZIP file
+    function downloadSlidesAsZip() {
+      const slideImages = document.querySelectorAll('.slide-image');
+      const zip = new JSZip();
+      const fetchPromises = [];
+      
+      slideImages.forEach((image, index) => {
+        const imageUrl = image.src;
+        const fetchPromise = fetch(imageUrl)
+        .then(response => response.blob())
+        .then(blob => {
+          zip.file(`slide-${index + 1}.jpg`, blob);
+        });
+        
+        fetchPromises.push(fetchPromise);
+      });
+      // Wait for all the fetch requests to resolve
+      Promise.all(fetchPromises)
+      .then(() => {
+        zip.generateAsync({ type: 'blob' })
+        .then(content => {
+          saveAs(content, 'slides.zip');
+        });
+      });
+    }
+
+    const downloadOptions = document.getElementById('downloadOptions');
+    
+    function handleDownloadOption(event) {
+      const selectedOption = event.target.value;
+      if (selectedOption === 'pdf') {
+        downloadSlidesAsPDF();
+      } else if (selectedOption === 'zip') {
+        downloadSlidesAsZip();
+      }
+      downloadOptions.value = '';
+    }
+    
+    downloadOptions.addEventListener('change', handleDownloadOption);
+
+
+    // like button
+    const likeButton = document.querySelector('.like');
+    
+    function getCookie(name) {
+      const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+      return cookieValue ? cookieValue.pop() : '';
+    }
+    
+    function handleLikeButtonClick() {
+      if (isUserAuthenticated) {
+        const liked = !likeButton.classList.contains('liked');
+        const csrftoken = getCookie('csrftoken');
+        fetch('{% url 'Home:like_slide' %}', {
+          method: 'POST',
+          body: JSON.stringify({
+            current_ch: {{current_ch}},
+            current_sk: {{current_sk}},
+            liked: liked,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+          },
+        })
+        .then(response => {
+          if (response.ok) {
+            likeButton.classList.toggle('liked');
+            // update total likes here
+            console.log('Like count updated successfully!');
+          } else {
+            console.log('Error updating like count.');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      } else {
+        popupWindow.style.display = 'block';
+        popupOverlay.style.display = 'block';
+        console.log('Please log in to like this post.');
+      }
+    }
+    
+    likeButton.addEventListener('click', handleLikeButtonClick);
+
+    popupOverlay.addEventListener('click', function () {
+      popupWindow.style.display = 'none';
+      popupOverlay.style.display = 'none';
+    });
+
+    // Share Button
+    const shareButton = document.getElementById('share');
+    shareButton.addEventListener('click', async () => {
+      // share without thumbnail
+      try {
+        const slideUrl = window.location.href;
+        if (navigator.share) {
+          await navigator.share({
+            title: 'Slide Share',
+            text: 'Check out this slide',
+            url: slideUrl,
+          });
+        } else {
+          alert('Sharing is not supported on this platform');
+        }
+      } catch (error) {
+        console.error('Error sharing:', error);
+      }
+      /* login to share this and generate the provide key (share with thumbnail)
+      const slideUrl = window.location.href;
+      const thumbnailUrl = thumbnail1.src;
+      const options = {
+        url: slideUrl,
+        image: thumbnailUrl,
+        buttons: {
+          email: false,  // Disable email sharing button
+          copy: false,   // Disable copy URL button
+          print: false,  // Disable print button
+        },
+      };
+      window.ShareThis.share(options);*/
+    });
+
+
+    // Shloka and Translation window
+    shlokas = [];
+    var lang = ['Language', 'भाषा', 'ભાષા', 'भाषा'];
+    var translation = ['English Translation', 'हिंदी अनुवाद', 'ગુજરાતી અનુવાદ', 'मराठी अनुवाद'];
+    var sktranslation = ['Shloka', 'श्लोक', 'શ્લોક', 'श्लोक'];
+    function langSelect() {
+      shlokas[0].style.display = 'none';
+      shlokas[1].style.display = 'none';
+      shlokas[2].style.display = 'none';
+      shlokas[3].style.display = 'none';
+      var select = document.getElementById('lang-select');
+      shlokas[select.selectedIndex].style.display = 'block';
+      document.getElementById('lang').textContent = lang[select.selectedIndex];
+      document.getElementById('translation').textContent = translation[select.selectedIndex];
+      document.getElementById('sk-translation').textContent = sktranslation[select.selectedIndex];
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+      shlokas = Array.from(document.getElementsByClassName('shloka-translation'));
+      langSelect();
+    });
+
+
+
+    // youtube-player
+    var player;
+    var videoId;
+    const apiKey = 'AIzaSyDsDcJ2eBKoElB5obcy21OOXOCHkSxbIAo';
+    const videos = document.querySelectorAll('.recommended-video');
+    const refreshButton = document.querySelector('.refresh');
+    const rIcon1 = document.querySelector('#ricon1');
+    const rIcon2 = document.querySelector('#ricon2');
+    
+    refreshButton.addEventListener('click', function() {
+      rIcon1.style.display = 'none';
+      rIcon2.style.display = 'block';
+      setTimeout(function() {
+        rIcon1.style.display = 'block';
+        rIcon2.style.display = 'none';
+      }, 1000); // 1000 milliseconds = 1 second
+    });
+
+    getYoutubeThumbnails();
+
+    function getYoutubeThumbnails() {
+      videos.forEach(function(v) {
+        const vId = v.getAttribute('data-video_id');
+        fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet%2Cstatistics&id=${vId}&key=${apiKey}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not OK');
+          }
+          return response.json();
+        })
+        .then(data => {
+          if (data.items && data.items.length > 0) {
+            const video = data.items[0];
+            
+            const thumbnailUrl = video.snippet.thumbnails.default.url;
+            const videoTitle = video.snippet.title;
+            /*const channelName = video.snippet.channelTitle;
+            const views = video.statistics.viewCount;
+            const likes = video.statistics.likeCount;*/
+
+            v.querySelector('img').src = thumbnailUrl;
+            v.querySelector('.recommended-video-title').textContent = videoTitle;
+            /*v.querySelector('.recommended-video-channel').textContent = channelName;
+            v.querySelector('.video-views').innerHTML = `<i class="fas fa-eye"></i> ${views}`;
+            v.querySelector('.video-likes').innerHTML = `<i class="fas fa-thumbs-up"></i> ${likes}`;*/
+
+          } else {
+            throw new Error('No video found with the specified ID');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      });
+    }
+
+    if(videos.length>0){
+      videoId = videos[0].getAttribute('data-video_id');
+      videos[0].style.display = 'none';
+    }
+
+    videos.forEach(function(video) {
+      video.addEventListener('click', function(event) {
+        videoId = video.getAttribute('data-video_id');
+        videos.forEach(function(v){
+          v.style.display = 'block';
+        });
+        video.style.display = 'none';
+        player.loadVideoById(videoId);
+      });
+    });
+    
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('youtube-player', {
+        videoId: videoId,
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+    
+    function onPlayerReady(event) {
+      event.target.playVideo();
+    }
+    
+    function onPlayerStateChange(event) {
+      if (event.data === YT.PlayerState.ENDED) {
+      }
+    }
+
+
+    function refreshRecommendedVideos() {
+      const csrftoken = getCookie('csrftoken');
+      fetch('{% url 'Home:refresh_videos' %}', {
+        method: 'POST',
+        body: JSON.stringify({
+          current_ch: {{current_ch}},
+          current_sk: {{current_sk}},
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken,
+        },
+      })
+      .then(response => response.json())
+      .then(data => {
+        const updatedVIds = JSON.parse(data).map(item => item.fields.video_id);
+        var ii = 0;
+        for (var i = 0; i < videos.length; i++) {
+          if (videos[i].style.display == 'block') {
+            videos[i].dataset.video_id = updatedVIds[ii];
+            ii++;
+          }
+        }
+        getYoutubeThumbnails();
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+
+    refreshButton.addEventListener('click', refreshRecommendedVideos);
+
+    /*
+    function init() {
+      gapi.client.load('youtube', 'v3', function() {
+        gapi.auth2.init({
+          client_id: '1015839630367-1qhb15mj9hipqekukh1tr0vv7rj0r9pd.apps.googleusercontent.com', // Replace with your Google API client ID
+          scope: 'https://www.googleapis.com/auth/youtube.readonly'
+        }).then(function() {
+          recommendedVideosContainer = document.getElementById('recommended-videos');
+          onYouTubeIframeAPIReady();
+        });
+      });
+    }
+    gapi.load('client', init);
+
+
+    function loadRecommendedVideos() {
+      var request = gapi.client.youtube.search.list({
+        part: 'snippet',
+        relatedToVideoId: player.getVideoData().video_id,
+        type: 'video',
+        maxResults: 5,
+        key: 'AIzaSyDsDcJ2eBKoElB5obcy21OOXOCHkSxbIAo'
+      });
+      
+      request.execute(function(response) {
+        var videos = response.result.items;
+        recommendedVideosContainer.innerHTML = '';
+        
+        videos.forEach(function(video) {
+          var videoItem = document.createElement('div');
+          videoItem.classList.add('recommended-video');
+          videoItem.innerHTML = `
+          <a href="javascript:void(0);" onclick="playRecommendedVideo('${video.id.videoId}')">
+            <img src="${video.snippet.thumbnails.medium.url}" alt="Recommended Video Thumbnail">
+            <div class="recommended-video-title">${video.snippet.title}</div>
+            <div class="recommended-video-channel">${video.snippet.channelTitle}</div>
+          </a>`;
+          recommendedVideosContainer.appendChild(videoItem);
+        });
+      });
+    }
+    
+    function playRecommendedVideo(videoId) {
+      player.loadVideoById(videoId);
+    }*/
+
+  
+
+
+
+
+
+
+
+  </script>
+
+  {% endblock body %}

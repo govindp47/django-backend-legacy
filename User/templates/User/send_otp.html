@@ -1,0 +1,28 @@
+{% extends 'Home/base.html' %}
+{% load static %}
+{% block title %}
+NIRGOVIND-Send_otp
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'login/style.css' %}">
+{% endblock css %}
+
+
+{% block body %}
+
+<!-- ======= Main ======= -->
+<div class="main">
+    <div class="maincontainer">
+        <form method="POST">
+            {% csrf_token %}
+            
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            <p>{{ message }}</p>
+            <button type="submit">Send OTP</button>
+          </form>
+    </div>
+</div>
+
+{% endblock %}

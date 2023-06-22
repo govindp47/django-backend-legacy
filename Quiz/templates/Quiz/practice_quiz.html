@@ -1,0 +1,36 @@
+{% extends 'Home/base.html' %}
+{% load static %}
+{% block title %}
+NIRGOVIND-Quiz
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'quiz/style.css' %}">
+{% endblock css %}
+
+{% block body %}
+
+<!-- ======= Main ======= -->
+<div class="main">
+  <div class="title">
+    Practice-Quiz
+  </div>
+  <div id="quiz-container">
+    <h1>Quiz</h1>
+    <form id="quiz-form">
+        <div id="question-container"></div>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="score-container"></div>
+  </div>
+
+</div>
+
+
+<script>
+  const quizUrl = '{% url 'Quiz:practice_quiz_json' %}';
+</script>
+
+<script src="{% static 'quiz/practice_quiz.js' %}"></script>
+
+{% endblock body %}

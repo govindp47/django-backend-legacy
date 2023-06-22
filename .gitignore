@@ -1,0 +1,24 @@
+# Virtual environment
+django-venv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Django
+db.sqlite3
+media/
+staticfiles/
+
+# OS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+#setup guide
+setup_guide.txt

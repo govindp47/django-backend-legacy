@@ -1,0 +1,168 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    
+    <link href="{% static 'img/logo.jpg' %}" rel="icon">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    
+    <!-- Other-CSS Files -->
+    <link href="{% static 'external-css-js/aos/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'external-css-js/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'external-css-js/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'external-css-js/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'external-css-js/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <link href="{% static 'external-css-js/remixicon/remixicon.css' %}" rel="stylesheet">
+    <link href="{% static 'external-css-js/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+    
+    <!-- Main CSS File -->
+    <link type="text/css" href="{% static 'style.css' %}" rel="stylesheet">
+
+    <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
+    <!-- block for adding css files -->
+    {% block css %}
+    {% endblock css %}
+
+</head>
+
+<body>
+    <div id="body">
+        <!-- ======= Header ======= -->
+        <header id="header" class="fixed-top ">
+          <div class="container d-flex align-items-center">
+      
+            <a href="{% url 'Home:index' %}" class="logo me-auto"><img src="{% static 'img/logo.jpg' %}" alt="" class="img-fluid"><h3>NIRGOVIND</h3></a>
+      
+            <nav id="navbar" class="navbar">
+              <ul>
+                <li><a class="nav-link scrollto active" href="{% url 'Home:index' %}">Home</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'Home:visual' %}">Visual</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'Home:quotes' %}">Quotes</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'Quiz:quiz' %}">Quiz</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'Home:contact' %}">Contact</a></li>
+                <li class="dropdown"><a href="#"><span>Reviews</span> <i class="bi bi-chevron-down"></i></a>
+                  <ul>
+                    <li><a href="#">Comments</a></li>
+                    <li><a href="#">Suggestions</a></li>
+                  </ul>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="dropdown"><a href="#"><span> {{user.username}} </span> <i class="bi bi-chevron-down"></i></a>
+                    <ul>
+                        <li><a href="{% url 'User:profile' user.username %}">Profile</a></li>
+                        <li><a href="{% url 'User:logout' %}">Logout</a></li>
+                    </ul>
+                </li>
+
+                {% else %}
+                <li><a class="nav-link scrollto" href="{% url 'User:login' %}">Login</a></li>
+                {% endif %}
+            
+              </ul>
+              <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+      
+          </div>
+        </header><!-- End Header -->
+
+        {% block body %}
+        
+        {% endblock body %}
+      
+        <!-- ======= Footer ======= -->
+        <footer id="footer">
+      
+          <div class="footer-top">
+            <div class="container">
+              <div class="row">
+      
+                <div class="col-lg-3 col-md-6 footer-contact">
+                  <a href="{% url 'Home:index' %}" class="logo me-auto"><img src="{% static 'img/logo.jpg' %}" alt="" class="img-fluid"></a>
+                  <h3>NIRGOVIND</h3>
+                  <p>
+                    Palace Road, Multhan, <br>
+                    Dhar, Madhya Pradesh, 454660 <br><br>
+                    <strong>Phone:</strong> +91 1234567890 <br>
+                    <strong>Email:</strong> nirgovind@gmail.com<br>
+                  </p>
+                </div>
+      
+                <div class="col-lg-3 col-md-6 footer-links">
+                  <h4>Links</h4>
+                  <div class="row">
+                    <div class="col-lg-6 col-md-12 footer-links-div">
+                      <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                      </ul>
+                    </div>
+        
+                    <div class="col-lg-6 col-md-12 footer-links-div">
+                      <ul>
+                        <li><a href="#">Help center</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                      </ul>
+                    </div>
+                  </div>
+      
+                </div>
+      
+                <div class="col-lg-3 col-md-6 footer-links">
+                  <h4>Connect with us</h4>
+                  <div class="social-links">
+                    <p>राधे राधे!</p>
+                    <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                    <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                    <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                    <a href="#" class="youtube"><i class="bx bxl-youtube"></i></a>
+                    <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                  </div>
+                </div>
+      
+              </div>
+            </div>
+          </div>
+      
+          <div class="container footer-bottom clearfix">
+            <div class="copyright">
+              &copy; Copyright <strong><span>Nirgovind</span></strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+              Designed by nirgovind
+            </div>
+          </div>
+        </footer><!-- End Footer -->
+      
+        <div id="preloader"></div>
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+      
+      
+        <!-- Other JS Files -->
+        <script src="{% static 'external-css-js/aos/aos.js' %}"></script>
+        <script src="{% static 'external-css-js/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'external-css-js/glightbox/js/glightbox.min.js' %}"></script>
+        <script src="{% static 'external-css-js/isotope-layout/isotope.pkgd.min.js' %}"></script>
+        <script src="{% static 'external-css-js/swiper/swiper-bundle.min.js' %}"></script>
+        <script src="{% static 'external-css-js/waypoints/noframework.waypoints.js' %}"></script>
+        <script src="{% static 'external-css-js/php-email-form/validate.js' %}"></script>
+      
+        <!-- Main JS File -->
+        <script src="{% static 'main.js' %}"></script>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+{% extends 'Home/base.html' %}
+{% load static %}
+{% block title %}
+NIRGOVIND-Quiz
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="{% static 'quiz/style.css' %}">
+{% endblock css %}
+
+{% block body %}
+
+<!-- ======= Main ======= -->
+<div class="main">
+  <div class="title">
+    Quiz
+  </div>
+  <div>
+    <a href="{% url 'Quiz:practice_quiz' %}"><button>Practice Quiz</button></a>
+  </div>
+  {% if user.is_authenticated and user.is_staff %}
+  <div>
+    <button id="create-quiz-btn">Create Quiz</button>
+  </div>
+  {% endif %}
+
+  <div id="quiz-popup" class="popup">
+    <form id="quiz-form">
+      <div>
+        <label for="quiz-id-input">Enter Quiz ID: <p>(*max length: 7)</p></label>
+        <input type="text" id="quiz-id-input" maxlength="7" required>
+        <span id="quiz-id-status"><i class="fas"></i></span>
+      </div>
+      <div>
+        <button type="submit">Submit</button>
+        <button type="button" id="cancel-btn">Cancel</button>
+      </div>
+    </form>
+  </div>
+  <div id="delete-popup" class="popup">
+    <form id="delete-form">
+      <h4>Confirm Delete Action</h4>
+      <p> *This action will permanently delete all the questions inside the quiz!</p>
+      <input type="checkbox" id="confirm-delete" required>
+      <label for="confirm-delete">Yes! I am sure i want to delete.</label>
+      <div>
+        <button type="submit">Delete</button>
+        <button type="button" id="cancel-delete">Back</button>
+      </div>
+    </form>
+  </div>
+  <div id="add-question-popup">
+    <form id="question-form">
+      <label for="quiz-id" class="required-label">Quiz ID: </label>
+      <input type="text" id="quiz-id" name="quiz-id" disabled>
+  
+      <label for="question-id" class="required-label">Question ID: </label>
+      <input type="text" id="question-id" name="question-id" maxlength="7" required>
+      <span id="question-id-status"><i class="fas"></i></span>
+      <button onclick="resetQuestionId(event)">Reset</button>
+  
+      <label for="question-marks" class="required-label">Marks: </label>
+      <input type="number" id="question-marks" name="question-marks" required>
+      <button onclick="resetQuestionMarks(event)">Reset</button>
+  
+      <label for="question-type" class="required-label">Question Type: </label>
+      <select id="question-type" name="question-type" onchange="toggleTextarea()" required>
+        <option value="" selected>Select Question Type</option>
+        <option value="MCQ">Multiple Choice</option>
+        <option value="TF">True/False</option>
+        <option value="FB">Fill-in-the-Blank</option>
+        <option value="FMB">Fill-in-Multiple-Blanks</option>
+        <option value="MA">Multiple Answers</option>
+        <option value="DD">Drop-Down</option>
+        <option value="MATCH">Matching</option>
+        <option value="NUM">Numerical Answer</option>
+        <option value="ESSAY">Essay Based</option>
+        <option value="UPLOAD">File Upload</option>
+      </select>
+      <button onclick="resetQuestionType(event)">Reset</button>
+    
+      <label for="question-text" class="required-label">Question Text: </label>
+      <div id="question-text-input" contenteditable="false"></div>
+      <input type="hidden" id="question-text" name="question-text" required>
+      <div id="question-text-message"></div>
+      <button onclick="resetQuestionText(event)">Reset</button>
+  
+      <div id="buttons-container"></div>
+    
+      <div id="options-container"></div>
+  
+      <button type="reset" onclick="resetQuestion()">Reset</button>
+      <button type="submit" id="save-button" onclick="saveForm(event)">Save</button>
+      <button type="submit" id="save&add-button" onclick="saveAddForm(event)">Save & Add Another</button>
+      <button type="button" id="cancel-add-question">Cancel</button>
+    </form>
+  </div>
+
+  <div id="quiz-list"></div>
+</div>
+
+<script>
+  const quizHistoryUrl = '{% url 'Quiz:quiz_page_history' %}';
+  const createNewQuizUrl = '{% url 'Quiz:create_new_quiz' %}';
+  const deleteQuizUrl = '{% url 'Quiz:delete_quiz' %}';
+  const thisPage = '{% url 'Quiz:quiz' %}';
+</script>
+
+<script src="{% static 'quiz/quiz.js' %}"></script>
+<script src="{% static 'quiz/add_question.js' %}"></script>
+
+{% endblock body %}

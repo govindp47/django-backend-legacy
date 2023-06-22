@@ -1,0 +1,94 @@
+{% extends "Home/base.html" %}
+{% load static %}
+{% block title %}
+NIRGOVIND-Signup
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'login/style.css' %}">
+{% endblock css %}
+
+{% block body %}
+
+<!-- ======= Main ======= -->
+<div class="main">
+    <div class="maincontainer">
+        <form action="{% url 'User:signup' %}" method="post" enctype="multipart/form-data">
+        <h2>Signup</h2>
+        {% csrf_token %}
+        
+        <div>
+            {{ form.username.label_tag }}
+            {{ form.username }}
+        </div>
+          
+        <div>
+            {{ form.first_name.label_tag }}
+            {{ form.first_name }}
+        </div>
+          
+        <div>
+            {{ form.last_name.label_tag }}
+            {{ form.last_name }}
+        </div>
+          
+        <div>
+            {{ form.email.label_tag }}
+            {{ form.email }}
+        </div>
+          
+        <div>
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+            <input type="checkbox" id="showPassword">
+            <label for="showPassword">Show Password</label>
+        </div>
+          
+        <div>
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+        </div>
+          
+        <div>
+            {{ form.profile_pic.label_tag }}
+            {{ form.profile_pic }}
+        </div>
+        <!--<div class="input-field">
+            <label for="username">Username or Email:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="input-field">
+            <div class="toggle-password">
+            <p class="toggle-password-text">Show</p>
+            </div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="submit-btn">
+            <button name="submit" type="submit">Login</button>
+            <a href="{% url 'Home:index' %}">
+                <button type="submit">Cancel</button>
+            </a>
+        </div>
+        <a href="#">Forgot Password?</a>-->
+
+        <div class="sign-up">
+            <button type="submit">Sign up</button>
+        </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Toggle password visibility when the checkbox is clicked
+    document.getElementById("showPassword").addEventListener("change", function() {
+      var passwordInput = document.getElementById("id_password1");
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+      } else {
+        passwordInput.type = "password";
+      }
+    });
+  </script>
+
+{% endblock body %}

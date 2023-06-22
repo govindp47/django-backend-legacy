@@ -1,0 +1,84 @@
+/*--------------------------------------------------------------
+# Main section
+--------------------------------------------------------------*/
+.main {
+  padding-top: 100px;
+  box-sizing: border-box;
+  background: url("../img/visualbg.png");
+  background-repeat: y-axis;
+  font-family: cursive;
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+
+.maincontainer {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  padding: 50px 20px;
+  font-weight: bold;
+  padding: 20px;
+  border: none;
+  border-radius: 10px;
+  background-image: -webkit-linear-gradient(top, rgb(255, 237, 208) 0%, rgb(245, 210, 144) 100%);
+  box-shadow: 0px 0px 30px #954902;
+  color: rgba(251, 170, 40, 0.951);
+  text-decoration: none;
+}
+
+.main h2 {
+  text-align: center;
+  font-family: inherit;
+  color: #9d5e5e;
+  margin-bottom: 30px;
+}
+
+.maincontainer form{
+  padding-top: 5px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.maincontainer label {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.maincontainer .submit-btn{
+  text-align: center;
+}
+
+.maincontainer .submit-btn a{
+  display: inline;
+}
+
+.maincontainer .submit-btn button[type="submit"] {
+  width: 25%;
+  padding: 0px 2px 6px 2px;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  background-image: -webkit-linear-gradient(top, #df9040 0%, #7c4916 100%);
+  box-shadow: 0 1px 2px #6f3703;
+  color: #562704;
+  text-shadow: 0 1px 1px #dd9b5d;
+  text-decoration: none;
+}
+
+.maincontainer .submit-btn button[type="submit"]:hover {
+  background-image: -webkit-linear-gradient(top, #83d8f0 0%, #553cb7 100%);
+  color: #024a5e;
+}
+
+.maincontainer a {
+  display: block;
+  text-align: center;
+  color: #444;
+  text-decoration: none;
+  font-size: 14px;
+}
