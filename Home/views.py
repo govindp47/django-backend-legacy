@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.core import serializers
+from django.conf import settings
 import json
 
 from .models import Slide, Shloka, UserInteraction, YoutubeVideos
@@ -35,6 +36,7 @@ def visual(request):
                "current_sk":current_sk,
                "likes":likes,
                "videos":videos,
+               "GOOGLE_API_KEY":settings.GOOGLE_API_KEY,
             }
     return render(request,"Home/visual.html",context=context)
 

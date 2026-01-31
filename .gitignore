@@ -20,5 +20,5 @@ staticfiles/
 .vscode/
 .idea/
 
-#setup guide
-setup_guide.txt
+# Environment variables
+.env

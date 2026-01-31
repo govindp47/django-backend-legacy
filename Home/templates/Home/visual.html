@@ -845,7 +845,7 @@ NIRGOVIND-Visual
     // youtube-player
     var player;
     var videoId;
-    const apiKey = 'AIzaSyDsDcJ2eBKoElB5obcy21OOXOCHkSxbIAo';
+    const apiKey = "{{ GOOGLE_API_KEY }}";
     const videos = document.querySelectorAll('.recommended-video');
     const refreshButton = document.querySelector('.refresh');
     const rIcon1 = document.querySelector('#ricon1');
@@ -987,7 +987,7 @@ NIRGOVIND-Visual
         relatedToVideoId: player.getVideoData().video_id,
         type: 'video',
         maxResults: 5,
-        key: 'AIzaSyDsDcJ2eBKoElB5obcy21OOXOCHkSxbIAo'
+        key: GOOGLE_API_KEY
       });
       
       request.execute(function(response) {
